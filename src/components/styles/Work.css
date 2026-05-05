@@ -1,0 +1,480 @@
+/* ═══════════════════════════════════════════════════════════
+   WORK SECTION — Base (Desktop-first, horizontal scroll)
+═══════════════════════════════════════════════════════════ */
+
+.work-section {
+  height: 100vh;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+  will-change: transform;
+  transition: 0s;
+}
+
+.work-section h2 {
+  margin-top: 100px;
+  font-size: 70px;
+  font-weight: 500;
+  overflow: hidden;
+}
+.work-section h2 > span {
+  color: var(--accentColor);
+}
+
+/* ── Container ───────────────────────────────────────────── */
+.work-container {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.work-container h1 {
+  text-align: center;
+  font-size: 3rem;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 24px 0 16px;
+}
+
+/* ── Horizontal scroll track ─────────────────────────────── */
+.work-flex {
+  display: flex;
+  flex-direction: row;
+  width: max-content;
+  /* fill remaining vertical space after the heading */
+  flex: 1;
+  min-height: 0;
+  margin-left: -80px;
+  position: relative;
+  gap: 0;
+}
+
+/* Top & bottom border lines */
+.work-flex::before,
+.work-flex::after {
+  content: "";
+  width: calc(50000vw);
+  height: 1px;
+  background-color: #363636;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+.work-flex::after {
+  top: 100%;
+}
+
+/* ── Individual card ─────────────────────────────────────── */
+.work-box {
+  /* Take full height of the flex row */
+  height: 100%;
+  /* Fixed width — content scrolls inside */
+  width: 720px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  padding: 40px 60px;
+  border-right: 1px solid #363636;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow: hidden; /* children handle their own overflow */
+}
+
+/* Even cards: image on top, info on bottom */
+.work-flex .work-box:nth-child(even) {
+  flex-direction: column-reverse;
+}
+
+/* Last card: extra right padding so it's fully visible */
+.work-flex .work-box:last-child {
+  padding-right: 120px;
+  border-right: none;
+}
+
+/* ── Info panel (scrollable) ─────────────────────────────── */
+.work-info {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  /* title+desc at top, tools pinned to bottom → no dead space before image */
+  justify-content: space-between;
+  gap: 14px;
+  padding-bottom: 12px; /* small breathing room above the image */
+  padding-right: 4px;
+}
+
+/* Hide scrollbar visually but keep functionality */
+.work-info::-webkit-scrollbar { width: 0; }
+.work-info { scrollbar-width: none; }
+
+/* ── Project header row ──────────────────────────────────── */
+.work-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  flex-shrink: 0;
+}
+.work-title > div {
+  text-align: right;
+}
+.work-title h3 {
+  font-size: 52px;
+  line-height: 1;
+  margin: 0;
+  font-weight: 600;
+}
+.work-title h4 {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0 0 4px;
+}
+.work-title > div p {
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 220px;
+  color: #adacac;
+  word-break: break-word;
+}
+
+/* ── Bullet description list ─────────────────────────────── */
+.work-desc {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.work-desc li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 13.5px;
+  font-weight: 200;
+  color: #adacac;
+  line-height: 1.65;
+  word-break: break-word;
+}
+.work-desc li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+  color: var(--accentColor, #b5a9ff);
+  font-weight: 400;
+}
+
+/* ── Tools row ───────────────────────────────────────────── */
+.work-tools {
+  flex-shrink: 0;
+}
+.work-tools h4 {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 0 4px;
+}
+.work-tools p {
+  font-size: 12.5px;
+  font-weight: 200;
+  color: #adacac;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ── Image panel ─────────────────────────────────────────── */
+.work-images {
+  flex-shrink: 0;
+  height: 200px; /* slightly tighter */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px; /* reduced from 16px */
+}
+
+/* even cards: image is on top so margin flips */
+.work-flex .work-box:nth-child(even) .work-images {
+  margin-bottom: 0;
+  margin-top: 8px;
+}
+
+.work-image {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.work-image-in {
+  position: relative;
+  height: 100%;
+}
+.work-image img {
+  width: auto;
+  max-width: 100%;
+  height: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+.work-image video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #000;
+  object-fit: cover;
+}
+
+/* ── GitHub link button ──────────────────────────────────── */
+.work-link {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: var(--backgroundColor);
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  box-shadow: 0px 0px 10px 0px rgba(255,255,255,0.5),
+              inset 0px 0px 10px 0px #393939;
+  transition: 0.3s;
+  opacity: 0;
+}
+.work-image a:hover { color: inherit; }
+.work-image a:hover .work-link { opacity: 1; }
+
+/* spacer box (unused but kept for backwards compat) */
+.spacer-box {
+  width: 8px;
+  flex-shrink: 0;
+  border-right: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SHORT VIEWPORT ADJUSTMENTS
+═══════════════════════════════════════════════════════════ */
+@media only screen and (max-height: 800px) {
+  .work-images {
+    height: 150px;
+  }
+  .work-image img {
+    max-height: 150px;
+  }
+  .work-box {
+    padding: 24px 48px;
+  }
+  .work-container h1 {
+    font-size: 2.4rem;
+    padding: 14px 0 8px;
+  }
+}
+
+@media only screen and (max-height: 650px) {
+  .work-images {
+    height: 130px;
+  }
+  .work-image img {
+    max-height: 130px;
+  }
+  .work-desc li {
+    font-size: 12px;
+  }
+  .work-info {
+    gap: 10px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DESKTOP — max-width 1400px (medium / small laptop)
+═══════════════════════════════════════════════════════════ */
+@media only screen and (max-width: 1400px) {
+  .work-box {
+    width: 620px;
+    padding: 32px 52px;
+  }
+  .work-flex {
+    margin-left: -52px;
+  }
+  .work-flex .work-box:last-child {
+    padding-right: 100px;
+  }
+  .work-title h3 {
+    font-size: 44px;
+  }
+  .work-title h4 {
+    font-size: 18px;
+  }
+  .work-images {
+    height: 180px;
+  }
+  .work-image img {
+    max-height: 180px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TABLET LANDSCAPE — max-width 1100px
+═══════════════════════════════════════════════════════════ */
+@media only screen and (max-width: 1100px) {
+  .work-box {
+    width: 500px;
+    padding: 26px 36px;
+  }
+  .work-flex {
+    margin-left: -36px;
+  }
+  .work-flex .work-box:last-child {
+    padding-right: 70px;
+  }
+  .work-title h3 {
+    font-size: 36px;
+  }
+  .work-images {
+    height: 160px;
+  }
+  .work-image img {
+    max-height: 160px;
+  }
+  .work-desc li {
+    font-size: 12.5px;
+  }
+  .work-info {
+    gap: 12px;
+    padding-bottom: 8px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TABLET PORTRAIT & MOBILE — max-width 768px
+   → Switches to vertical stacked layout (no GSAP pin)
+═══════════════════════════════════════════════════════════ */
+@media only screen and (max-width: 768px) {
+  .work-section {
+    height: auto;
+    overflow: visible;
+  }
+
+  .work-container {
+    height: auto;
+    padding: 0 20px 40px;
+  }
+
+  .work-container h1 {
+    font-size: 2.2rem;
+    padding: 24px 0 12px;
+  }
+
+  /* Stack cards vertically */
+  .work-flex,
+  .work-flex.mobile-scroll {
+    flex-direction: column;
+    width: 100%;
+    margin-left: 0;
+    flex: unset;
+    height: auto;
+    gap: 0;
+    overflow: visible;
+  }
+
+  /* Remove top/bottom border lines — they'd span the world */
+  .work-flex::before,
+  .work-flex::after {
+    display: none;
+  }
+
+  .work-box {
+    width: 100%;
+    height: auto;          /* natural height — content not clipped */
+    border-right: none;
+    border-bottom: 1px solid #363636;
+    padding: 32px 20px;
+    flex-direction: column !important; /* undo even-card reverse */
+    gap: 20px;
+    overflow: visible;     /* show all content */
+  }
+
+  .work-flex .work-box:last-child {
+    padding-right: 20px;
+    padding-bottom: 40px;
+    border-bottom: none;
+  }
+
+  /* Info panel — no scroll needed when height is auto */
+  .work-info {
+    flex: none;
+    overflow: visible;
+    gap: 14px;
+    padding-right: 0;
+  }
+
+  /* Image panel — natural height */
+  .work-images,
+  .work-flex .work-box:nth-child(even) .work-images {
+    height: auto;
+    margin: 0;
+  }
+
+  .work-image img {
+    max-height: 200px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .work-title h3 {
+    font-size: 36px;
+  }
+  .work-title h4 {
+    font-size: 16px;
+  }
+  .work-title > div p {
+    font-size: 12px;
+    max-width: 160px;
+  }
+
+  .work-desc li {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SMALL MOBILE — max-width 480px
+═══════════════════════════════════════════════════════════ */
+@media only screen and (max-width: 480px) {
+  .work-container h1 {
+    font-size: 1.8rem;
+  }
+
+  .work-box {
+    padding: 24px 16px;
+    gap: 16px;
+  }
+
+  .work-title h3 {
+    font-size: 28px;
+  }
+
+  .work-title > div p {
+    font-size: 11px;
+    max-width: 130px;
+  }
+
+  .work-desc li {
+    font-size: 12px;
+  }
+
+  .work-image img {
+    max-height: 170px;
+  }
+}
